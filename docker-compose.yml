@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  gateway-service:
+    build:
+      context: ./gateway-service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - auth-service
+      - budget-service
+      - transaction-service
+      - user-service
+      - savings-service
+      - investment-service
+      - notification-service
+      - analytics-service
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  budget-service:
+    build:
+      context: ./budget-service
+    ports:
+      - "5002:5002"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  transaction-service:
+    build:
+      context: ./transaction-service
+    ports:
+      - "5003:5003"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "5004:5004"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  savings-service:
+    build:
+      context: ./savings-service
+    ports:
+      - "5005:5005"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  investment-service:
+    build:
+      context: ./investment-service
+    ports:
+      - "5006:5006"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  notification-service:
+    build:
+      context: ./notification-service
+    ports:
+      - "5007:5007"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  analytics-service:
+    build:
+      context: ./analytics-service
+    ports:
+      - "5008:5008"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=secret
+      - DB_NAME=finance_app
+    networks:
+      - finance-network
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: finance_app
+    ports:
+      - "5432:5432"
+    networks:
+      - finance-network
+
+networks:
+  finance-network:
+    driver: bridge
