@@ -35,6 +35,10 @@ services:
       - DB_USER=admin
       - DB_PASSWORD=secret
       - DB_NAME=finance_app
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
     networks:
       - finance-network
 
@@ -144,6 +148,13 @@ services:
       POSTGRES_DB: finance_app
     ports:
       - "5432:5432"
+    networks:
+      - finance-network
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
     networks:
       - finance-network
 
